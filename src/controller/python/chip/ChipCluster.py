@@ -393,6 +393,14 @@ class ChipCluster:
             },
             "TemperatureMeasurement": {
             },
+            "WindowCovering": {
+                "WindowCoveringDownClose": {
+                },
+                "WindowCoveringStop": {
+                },
+                "WindowCoveringUpOpen": {
+                },
+            },
         }
 
     def SendCommand(self, device: ctypes.c_void_p, cluster: str, command: str, endpoint: int, groupid: int, args):
@@ -976,6 +984,27 @@ class ChipCluster:
             )
         )
 
+    def ClusterWindowCovering_CommandWindowCoveringDownClose(self, device: ctypes.c_void_p, ZCLendpoint: int, ZCLgroupid: int):
+        self._ChipStack.Call(
+            lambda: self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringDownClose(
+                device, ZCLendpoint, ZCLgroupid
+            )
+        )
+
+    def ClusterWindowCovering_CommandWindowCoveringStop(self, device: ctypes.c_void_p, ZCLendpoint: int, ZCLgroupid: int):
+        self._ChipStack.Call(
+            lambda: self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringStop(
+                device, ZCLendpoint, ZCLgroupid
+            )
+        )
+
+    def ClusterWindowCovering_CommandWindowCoveringUpOpen(self, device: ctypes.c_void_p, ZCLendpoint: int, ZCLgroupid: int):
+        self._ChipStack.Call(
+            lambda: self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringUpOpen(
+                device, ZCLendpoint, ZCLgroupid
+            )
+        )
+
     def InitLib(self, chipLib):
         self._chipLib = chipLib
         # Cluster BarrierControl
@@ -1235,3 +1264,13 @@ class ChipCluster:
         self._chipLib.chip_ime_AppendCommand_Scenes_ViewScene.argtypes = [ctypes.c_void_p, ctypes.c_uint8, ctypes.c_uint16, ctypes.c_uint16, ctypes.c_uint8]
         self._chipLib.chip_ime_AppendCommand_Scenes_ViewScene.restype = ctypes.c_uint32
         # Cluster TemperatureMeasurement
+        # Cluster WindowCovering
+        # Cluster WindowCovering Command WindowCoveringDownClose
+        self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringDownClose.argtypes = [ctypes.c_void_p, ctypes.c_uint8, ctypes.c_uint16]
+        self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringDownClose.restype = ctypes.c_uint32
+        # Cluster WindowCovering Command WindowCoveringStop
+        self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringStop.argtypes = [ctypes.c_void_p, ctypes.c_uint8, ctypes.c_uint16]
+        self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringStop.restype = ctypes.c_uint32
+        # Cluster WindowCovering Command WindowCoveringUpOpen
+        self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringUpOpen.argtypes = [ctypes.c_void_p, ctypes.c_uint8, ctypes.c_uint16]
+        self._chipLib.chip_ime_AppendCommand_WindowCovering_WindowCoveringUpOpen.restype = ctypes.c_uint32

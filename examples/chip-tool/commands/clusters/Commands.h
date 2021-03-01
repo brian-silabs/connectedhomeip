@@ -389,6 +389,7 @@ static void OnScenesClusterViewSceneResponse(void * context, uint16_t groupId, u
 | OnOff                                                               | 0x0006 |
 | Scenes                                                              | 0x0005 |
 | TemperatureMeasurement                                              | 0x0402 |
+| WindowCovering                                                      | 0x0102 |
 \*----------------------------------------------------------------------------*/
 
 constexpr chip::ClusterId kBarrierControlClusterId         = 0x0103;
@@ -404,6 +405,7 @@ constexpr chip::ClusterId kMediaPlaybackClusterId          = 0xF001;
 constexpr chip::ClusterId kOnOffClusterId                  = 0x0006;
 constexpr chip::ClusterId kScenesClusterId                 = 0x0005;
 constexpr chip::ClusterId kTemperatureMeasurementClusterId = 0x0402;
+constexpr chip::ClusterId kWindowCoveringClusterId         = 0x0102;
 
 /*----------------------------------------------------------------------------*\
 | Cluster BarrierControl                                              | 0x0103 |
@@ -6601,6 +6603,113 @@ private:
 };
 
 /*----------------------------------------------------------------------------*\
+| Cluster WindowCovering                                              | 0x0102 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+| * WindowCoveringDownClose                                           |   0x01 |
+| * WindowCoveringStop                                                |   0x02 |
+| * WindowCoveringUpOpen                                              |   0x00 |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+\*----------------------------------------------------------------------------*/
+
+/*
+ * Command WindowCoveringDownClose
+ */
+class WindowCoveringWindowCoveringDownClose : public ModelCommand
+{
+public:
+    WindowCoveringWindowCoveringDownClose() : ModelCommand("window-covering-down-close") { ModelCommand::AddArguments(); }
+
+    CHIP_ERROR SendCommand(ChipDevice * device, uint8_t endpointId) override
+    {
+        ChipLogProgress(chipTool, "Sending cluster (0x0102) command (0x01) on endpoint %" PRIu16, endpointId);
+
+        chip::Controller::WindowCoveringCluster cluster;
+        cluster.Associate(device, endpointId);
+        return cluster.WindowCoveringDownClose(onSuccessCallback->Cancel(), onFailureCallback->Cancel());
+    }
+
+private:
+    chip::Callback::Callback<DefaultSuccessCallback> * onSuccessCallback =
+        new chip::Callback::Callback<DefaultSuccessCallback>(OnDefaultSuccessResponse, this);
+    chip::Callback::Callback<DefaultFailureCallback> * onFailureCallback =
+        new chip::Callback::Callback<DefaultFailureCallback>(OnDefaultFailureResponse, this);
+};
+
+/*
+ * Command WindowCoveringStop
+ */
+class WindowCoveringWindowCoveringStop : public ModelCommand
+{
+public:
+    WindowCoveringWindowCoveringStop() : ModelCommand("window-covering-stop") { ModelCommand::AddArguments(); }
+
+    CHIP_ERROR SendCommand(ChipDevice * device, uint8_t endpointId) override
+    {
+        ChipLogProgress(chipTool, "Sending cluster (0x0102) command (0x02) on endpoint %" PRIu16, endpointId);
+
+        chip::Controller::WindowCoveringCluster cluster;
+        cluster.Associate(device, endpointId);
+        return cluster.WindowCoveringStop(onSuccessCallback->Cancel(), onFailureCallback->Cancel());
+    }
+
+private:
+    chip::Callback::Callback<DefaultSuccessCallback> * onSuccessCallback =
+        new chip::Callback::Callback<DefaultSuccessCallback>(OnDefaultSuccessResponse, this);
+    chip::Callback::Callback<DefaultFailureCallback> * onFailureCallback =
+        new chip::Callback::Callback<DefaultFailureCallback>(OnDefaultFailureResponse, this);
+};
+
+/*
+ * Command WindowCoveringUpOpen
+ */
+class WindowCoveringWindowCoveringUpOpen : public ModelCommand
+{
+public:
+    WindowCoveringWindowCoveringUpOpen() : ModelCommand("window-covering-up-open") { ModelCommand::AddArguments(); }
+
+    CHIP_ERROR SendCommand(ChipDevice * device, uint8_t endpointId) override
+    {
+        ChipLogProgress(chipTool, "Sending cluster (0x0102) command (0x00) on endpoint %" PRIu16, endpointId);
+
+        chip::Controller::WindowCoveringCluster cluster;
+        cluster.Associate(device, endpointId);
+        return cluster.WindowCoveringUpOpen(onSuccessCallback->Cancel(), onFailureCallback->Cancel());
+    }
+
+private:
+    chip::Callback::Callback<DefaultSuccessCallback> * onSuccessCallback =
+        new chip::Callback::Callback<DefaultSuccessCallback>(OnDefaultSuccessResponse, this);
+    chip::Callback::Callback<DefaultFailureCallback> * onFailureCallback =
+        new chip::Callback::Callback<DefaultFailureCallback>(OnDefaultFailureResponse, this);
+};
+
+/*
+ * Discover Attributes
+ */
+class DiscoverWindowCoveringAttributes : public ModelCommand
+{
+public:
+    DiscoverWindowCoveringAttributes() : ModelCommand("discover") { ModelCommand::AddArguments(); }
+
+    CHIP_ERROR SendCommand(ChipDevice * device, uint8_t endpointId) override
+    {
+        ChipLogProgress(chipTool, "Sending cluster (0x0000) command (0x0C) on endpoint %" PRIu16, endpointId);
+
+        chip::Controller::WindowCoveringCluster cluster;
+        cluster.Associate(device, endpointId);
+        return cluster.DiscoverAttributes(onSuccessCallback->Cancel(), onFailureCallback->Cancel());
+    }
+
+private:
+    chip::Callback::Callback<DefaultSuccessCallback> * onSuccessCallback =
+        new chip::Callback::Callback<DefaultSuccessCallback>(OnDefaultSuccessResponse, this);
+    chip::Callback::Callback<DefaultFailureCallback> * onFailureCallback =
+        new chip::Callback::Callback<DefaultFailureCallback>(OnDefaultFailureResponse, this);
+};
+
+/*----------------------------------------------------------------------------*\
 | Register all Clusters commands                                               |
 \*----------------------------------------------------------------------------*/
 void registerClusterBarrierControl(Commands & commands)
@@ -6893,6 +7002,19 @@ void registerClusterTemperatureMeasurement(Commands & commands)
 
     commands.Register(clusterName, clusterCommands);
 }
+void registerClusterWindowCovering(Commands & commands)
+{
+    const char * clusterName = "WindowCovering";
+
+    commands_list clusterCommands = {
+        make_unique<WindowCoveringWindowCoveringDownClose>(),
+        make_unique<WindowCoveringWindowCoveringStop>(),
+        make_unique<WindowCoveringWindowCoveringUpOpen>(),
+        make_unique<DiscoverWindowCoveringAttributes>(),
+    };
+
+    commands.Register(clusterName, clusterCommands);
+}
 
 void registerClusters(Commands & commands)
 {
@@ -6909,4 +7031,5 @@ void registerClusters(Commands & commands)
     registerClusterOnOff(commands);
     registerClusterScenes(commands);
     registerClusterTemperatureMeasurement(commands);
+    registerClusterWindowCovering(commands);
 }
