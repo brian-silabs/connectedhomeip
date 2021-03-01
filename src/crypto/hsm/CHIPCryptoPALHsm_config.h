@@ -71,4 +71,3 @@
  * Enable HSM for SPAKE PROVER
  */
 #define ENABLE_HSM_SPAKE_PROVER 1
-
