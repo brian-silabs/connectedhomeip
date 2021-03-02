@@ -21,7 +21,10 @@ public enum ChipCommandType {
   OFF(0),
   ON(1),
   TOGGLE(2),
-  LEVEL(3);
+  LEVEL(3)
+  UP(4),
+  STOP(5),
+  DOWN(7);
 
   private int value;
 
