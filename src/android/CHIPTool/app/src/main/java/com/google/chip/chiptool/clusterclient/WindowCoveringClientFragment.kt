@@ -68,17 +68,17 @@ class WindowCoveringClientFragment : Fragment() {
   }
 
   private fun sendUpCommandClick() {
-    commandType = ChipCommandType.
+    commandType = ChipCommandType.UP
     if (deviceController.isConnected) sendCommand() else connectToDevice()
   }
 
   private fun sendStopCommandClick() {
-    commandType = ChipCommandType.OFF
+    commandType = ChipCommandType.STOP
     if (deviceController.isConnected) sendCommand() else connectToDevice()
   }
 
   private fun sendDownCommandClick() {
-    commandType = ChipCommandType.TOGGLE
+    commandType = ChipCommandType.DOWN
     if (deviceController.isConnected) sendCommand() else connectToDevice()
   }
 

@@ -27,14 +27,17 @@
         android:id="@+id/downBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_margin="32dp"
-        android:layout_gravity="center"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/ipAddressEd"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:background="@android:color/darker_gray"
-        android:text="@string/send_command_on_btn_text"
-        android:textSize="16sp"/>
+        android:padding="16dp"
+        android:text="@string/send_command_down_btn_text"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/stopBtn"
@@ -42,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ipAddressEd"
         android:layout_gravity="center"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
         android:layout_toStartOf="@+id/upBtn"
