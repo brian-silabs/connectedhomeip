@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment
 import chip.setuppayload.SetupPayloadParser
 import com.google.chip.chiptool.attestation.AttestationTestFragment
 import com.google.chip.chiptool.clusterclient.OnOffClientFragment
+import com.google.chip.chiptool.clusterclient.WindowCoveringClientFragment
 import com.google.chip.chiptool.commissioner.CommissionerActivity
 import com.google.chip.chiptool.echoclient.EchoClientFragment
 import com.google.chip.chiptool.provisioning.DeviceProvisioningFragment
@@ -107,6 +108,11 @@ class CHIPToolActivity :
   override fun handleOnOffClicked() {
     showFragment(OnOffClientFragment.newInstance())
   }
+
+  override fun handleWindowCoveringClicked() {
+    showFragment(WindowCoveringClientFragment.newInstance())
+  }
+
 
   override fun handleAttestationTestClicked() {
     showFragment(AttestationTestFragment.newInstance())

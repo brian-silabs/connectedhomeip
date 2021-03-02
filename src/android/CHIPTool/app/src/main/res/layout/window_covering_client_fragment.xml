@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/ipAddressEd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_alignParentTop="true"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:hint="@string/enter_ip_address_hint_text"/>
+
+    <TextView
+        android:id="@+id/windowCoveringCommandStatusTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/downBtn"
+        android:minLines="4"
+        android:padding="16dp"
+        android:singleLine="false"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/downBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_margin="32dp"
+        android:layout_gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/ipAddressEd"
+        android:background="@android:color/darker_gray"
+        android:text="@string/send_command_on_btn_text"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/stopBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ipAddressEd"
+        android:layout_gravity="center"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:layout_toStartOf="@+id/upBtn"
+        android:layout_toEndOf="@id/downBtn"
+        android:background="@android:color/darker_gray"
+        android:padding="16dp"
+        android:text="@string/send_command_stop_btn_text"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@id/upBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ipAddressEd"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/send_command_up_btn_text"
+        android:textSize="16sp" />
+
+</RelativeLayout>
